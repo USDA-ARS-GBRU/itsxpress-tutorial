@@ -79,10 +79,10 @@ and environmental data. This involves:
 We will be using two example soil samples from the Fungal ITS1 region. They have been
 subsampled 10,000 read pairs for faster processing.
 
-* [sample1_r1.fq.gz]() and [sample1_r2.fq.gz]()
-* [sample2_r1.fq.gz]() and [sample2_r2.fq.gz]()
-* A manifest file: [Manifest.txt]()
-* A mapping file: [mapping.txt]()
+* [sample1_r1.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/blob/master/data/sample1_r1.fq.gz) and [sample1_r2.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/blob/master/data/sample1_r2.fq.gz)
+* [sample2_r1.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/blob/master/data/sample2_r1.fq.gz) and [sample2_r2.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/blob/master/data/sample2_r2.fq.gz)
+* A manifest file: [Manifest.txt](https://github.com//USDA-ARS-GBRU/itsxpress-tutorial/blob/master/data/manifest.txt)
+* A mapping file: [mapping.txt](https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/mapping.txt)
 
 ### Workflow
 
@@ -95,9 +95,9 @@ in the manifest to the complete path to your data.
 
 #### Importing data
 
-Depending on where you downloaded the sample files you may need to edit the
-manifest file to include the absolute path to your FASTQ files.  Once you have
-edited the files you can iimport the data into the `sequences.qza` file like this:
+**Depending on where you downloaded the sample files you may need to edit the
+manifest file to include the absolute path to your FASTQ files.**  Once you have
+edited the files you can import the data into the `sequences.qza` file like this:
 
 ```
 qiime tools import \
