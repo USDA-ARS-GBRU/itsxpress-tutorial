@@ -3,7 +3,7 @@ _Adam R. Rivers - USDA Agricultural Research Service_
 
 ## Background
 
-The internally transcribed spacer (ITS) region a widely used phylogenetic marker for fungi and other taxa. Previous work by [Nilsson et al. (2009)](https://doi.org/10.1111/j.1574-6968.2009.01618.x) showed that removing the conserved regions around the ITS results in more accurate taxonomic classification. An existing program, [ITSx](https://doi.org/10.1111/2041-210X.12073), can trim FASTA sequences by matching HMM profiles to the ends of the flanking conserved genes. I designed ITSxpress to extend this technique to trim the FASTQ files needed for the newer exact sequence variant methods used by in [QIIME 2](https://qiime2.org/): [Dada2](https://doi.org/10.1038/nmeth.3869) and [Deblur](10.1128/mSystems.00191-16). ITSxpress processes QIIME artifacts of the type "paired-end sequences with quality" or "sequences with quality".
+The internally transcribed spacer (ITS) region a widely used phylogenetic marker for fungi and other taxa. Previous work by [Nilsson et al. (2009)](https://doi.org/10.1111/j.1574-6968.2009.01618.x) showed that removing the conserved regions around the ITS results in more accurate taxonomic classification. An existing program, [ITSx](https://doi.org/10.1111/2041-210X.12073), can trim FASTA sequences by matching HMM profiles to the ends of the flanking conserved genes. ITSxpress is designed to extend this technique to trim the FASTQ files needed for the newer exact sequence variant methods used by in [QIIME 2](https://qiime2.org/): [Dada2](https://doi.org/10.1038/nmeth.3869) and [Deblur](10.1128/mSystems.00191-16). ITSxpress processes QIIME artifacts of the type "paired-end sequences with quality" or "sequences with quality".
 
 The plugin:
 1. Merges reads (if paired-end) using [BBMerge](https://doi.org/10.1371/journal.pone.0185056)
@@ -47,17 +47,16 @@ qiime itsxpress
 ```
 
 ## Tutorial
-This tutorial walks the user through the first portion of a typical ITS workflow.
+This tutorial walks the user through the first portion of a typical ITS workflow:
 1. Trimming the ITS region with ITSxpress
 2. Calling sequence variants with Dada2
 3. Training the QIIME 2 classifier
 4. Classifying the sequences taxonomically
 
-For this tutorial we will be starting with two paired-end samples than have already been demultiplexed into froward and reverse FASTQ files. A manifest file which lists the samples, files and read orientation is also used. *If you
-have copied the examples files to your computer you will need to change the path in the manifest to the complete path for your data files.*
+For this tutorial we will be starting with two paired-end samples than have already been demultiplexed into froward and reverse FASTQ files. A manifest file which lists the samples, files and read orientation is also used. *If you have copied the example files to your computer you will need to change the path in the manifest to the complete path for your computer.*
 
 ### Example data
-We will be using two example soil samples from the Fungal ITS1 region. They have been subsampled 10,000 read pairs for faster processing.
+We will be using data from two soil samples which have have their ITS1 region amplified with fungal primers. They have been subsampled to 10,000 read pairs for faster processing.
 
 * [sample1_r1.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r1.fq.gz) and [sample1_r2.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r2.fq.gz)
 * [sample2_r1.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r1.fq.gz) and [sample2_r2.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r2.fq.gz)
@@ -67,7 +66,7 @@ We will be using two example soil samples from the Fungal ITS1 region. They have
 
 ### Importing data
 
-Edit the absolute paths in your Once your manifest file to match your file location then import the data into the `sequences.qza` file like this:
+Edit the absolute paths in your manifest file to match your file location, then import the data into QIIME.
 
 ```
 qiime tools import \
@@ -82,8 +81,7 @@ Run time: 5 seconds
 
 ### Trimming ITS samples with Q2-ITSxpress
 
-ITSxpress takes paired-end or single-end QIIME artifacts for trimming. It merges reads (if paired-end), temporally clusters the reads, then looks for the ends of the ITS region with  Hmmsearch. HMM models are available for 18 different
-clades. For a full listing run `qiime itsxpress trim-pair --help`. ITSxpress only returns merged sequences.
+ITSxpress takes paired-end or single-end QIIME artifacts for trimming. It merges reads (if paired-end), temporally clusters the reads, then looks for the ends of the ITS region with  Hmmsearch. HMM models are available for 18 different clades. For a full listing run `qiime itsxpress trim-pair --help`. ITSxpress only returns merged sequences.
 
 ```
 qiime itsxpress trim-pair\
@@ -99,8 +97,7 @@ Run time: 1 minute
 
 ### Use Dada2 to identify sequence variants
 
-The merged sequences can be fed directly into Dada2 using the denoise-single option, even if the reads were paired ended to begin with.  Since BBmerge handled the merging and quality issues there is no need to trim
-or truncate the reads further.
+The merged sequences can be fed directly into Dada2 using the denoise-single command, even if the reads were paired-end to begin with.  Since BBmerge handled the merging and quality issues there is no need to trim or truncate the reads further.
 
 ```
 time qiime dada2 denoise-single \
@@ -112,9 +109,10 @@ time qiime dada2 denoise-single \
 Run time: 35 seconds
 
 * Output:
-  1.  `dada2out/table.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Ftable.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/dada2out/table.qza)
-  2. `dada2out/denoising_stats.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Fdenoising_stats.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/dada2out/denoising_stats.qza)
-  3. `dada2out/representative_sequences.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Frepresentative_sequences.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/dada2out/representative_sequences.qza)
+
+  1. `dada2out/denoising_stats.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Fdenoising_stats.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/dada2out/denoising_stats.qza)
+  2. `dada2out/representative_sequences.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Frepresentative_sequences.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/dada2out/representative_sequences.qza)
+  3.  `dada2out/table.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Ftable.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/dada2out/table.qza)
 
 ### Summarize the data for visual inspection:
 ```
@@ -195,7 +193,7 @@ Run time: 1.5 minutes
 * Output `taxonomy.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxonomy.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/taxonomy.qza)
 
 ### Summarize the results
-Summarize the results for visualization in the QIIME 2 viewer
+Summarize the results for visualization in the QIIME 2 viewer.
 
 ```
 qiime metadata tabulate \
