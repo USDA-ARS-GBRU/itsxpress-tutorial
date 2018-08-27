@@ -75,6 +75,12 @@ and environmental data. This involves:
 3. training the Qiime Classifier
 4. classifying the sequences Taxonomically
 
+For this tutorial we will be starting with two paired-end samples than have
+already been demultiplexed into froward and reverse FASTQ files. A manifest
+file which lists the samples, files and read orientation is also used. If you
+have copied the examples files to your computer you will need to change the path
+in the manifest to the complete path to your data.
+
 ### Example data
 We will be using two example soil samples from the Fungal ITS1 region. They have been
 subsampled 10,000 read pairs for faster processing.
@@ -85,16 +91,8 @@ https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r2.f
 * A manifest file: [manifest.txt](https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/manifest.txt)
 * A mapping file: [mapping.txt](https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/mapping.txt)
 
-### Workflow
 
-
-For this tutorial we will be starting with two paired-end samples than have
-already been demultiplexed into froward and reverse FASTQ files. A manifest
-file which lists the samples, files and read orientation is also used. If you
-have copied the examples files to your computer you will need to change the path
-in the manifest to the complete path to your data.
-
-#### Importing data
+### Importing data
 
 **Depending on where you downloaded the sample files you may need to edit the
 manifest file to include the absolute path to your FASTQ files.**  Once you have
@@ -111,7 +109,7 @@ Run time: 5 seconds
 
 * Output `sequences.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fsequences.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/sequences.qza)
 
-#### Trimming ITS samples with Q2-ITSXpress
+### Trimming ITS samples with Q2-ITSXpress
 
 ITSxpress takes paired-end or single-end QIIME artifacts for trimming. It merges
 reads (if paired-end), temporally clusters the reads, then looks for the ends of
@@ -131,7 +129,7 @@ Run time: 1 minute
 
 * Output `trimmed.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftrimmed.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/trimmed.qza)
 
-#### Use Dada2 to identify sequence variants
+### Use Dada2 to identify sequence variants
 
 The merged sequences can be fed directly into Dada2 using the denoise-single
 option, even if the reads were paired ended to begin with.  Since BBmerge handled
@@ -152,7 +150,7 @@ Run time: 35 seconds
   2. `dada2out/denoising_stats.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Fdenoising_stats.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/dada2out/denoising_stats.qza)
   3. `dada2out/representative_sequences.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Frepresentative_sequences.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/dada2out/representative_sequences.qza)
 
-#### Summarize the data for visual inspection:
+### Summarize the data for visual inspection:
 ```
 qiime feature-table summarize \
   --i-table dada2out/table.qza \
@@ -162,9 +160,8 @@ Run time: 4 seconds
 
 * Output `tableviz.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftableviz.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/tableviz.qzv)
 
-### Assigning fungal taxomomy
 
-#### Download reference data from UNTIE
+### Download reference data from UNITE for fungal classification
 
 First download the newest [UNITE database for QIIME ](https://unite.ut.ee/repository.php) and unzip the file.
 
@@ -173,7 +170,7 @@ wget https://files.plutof.ut.ee/doi/0A/0B/0A0B25526F599E87A1E8D7C612D23AF7205F02
 unzip 0A0B25526F599E87A1E8D7C612D23AF7205F0239978CBD9C491767A0C1D237CC.zip
 ```
 
-#### Import the latest Unite data into UNITE:
+### Import the latest UNITE data into QIIME 2:
 
 Import the UNITE sequences for the smaller dataset selected with dynamic
 thresholds determined by fungal experts.
@@ -209,7 +206,7 @@ Run time 4 seconds
 
 * Output `unite-taxonomy.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Funite-taxonomy.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/unite-taxonomy.qza)
 
-#### Train the QIIME classifier
+### Train the QIIME classifier
 
 QIIME provides its own Naive Bayes classifier similar to
 [RDP](https://dx.doi.org/10.1128%2FAEM.00062-07) from a python package called
@@ -226,7 +223,7 @@ Run time: 5 minutes
 
 * Output `classifier.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fclassifier.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/classifier.qza)
 
-#### Classify the sequence variants
+### Classify the sequence variants
 
 Once the classifier is trained sequences can be classified.
 
@@ -240,7 +237,7 @@ Run time: 1.5 minutes
 
 * Output `taxonomy.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxonomy.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/taxonomy.qza)
 
-#### Summarize the results
+### Summarize the results
 Summarize the results for visualization in the QIIME viewer
 
 ```
@@ -253,7 +250,7 @@ Run time: 4 seconds
 
 * Output `taxonomy.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxonomy.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/taxonomy.qzv)
 
-#### Create barplot figures
+### Create interactive bar plot figures
 
 
 ```
