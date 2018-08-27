@@ -1,4 +1,5 @@
 # Q2-ITSxpress: a QIIME 2 plugin to trim ITS sequences
+Adam R. Rivers
 
 ## Background
 
