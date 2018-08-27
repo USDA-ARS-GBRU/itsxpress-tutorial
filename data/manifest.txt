@@ -1,5 +1,5 @@
 sample-id,absolute-filepath,direction
-S1,/Users/rivers/Documents/ITSXpress_paper/tutorial/data/sample1_r1.fq.gz,forward
-S1,/Users/rivers/Documents/ITSXpress_paper/tutorial/data/sample1_r2.fq.gz,reverse
-S2,/Users/rivers/Documents/ITSXpress_paper/tutorial/data/sample2_r1.fq.gz,forward
-S2,/Users/rivers/Documents/ITSXpress_paper/tutorial/data/sample2_r2.fq.gz,reverse
+S1,data/sample1_r1.fq.gz,forward
+S1,data/sample1_r2.fq.gz,reverse
+S2,data/sample2_r1.fq.gz,forward
+S2,data/sample2_r2.fq.gz,reverse
