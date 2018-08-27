@@ -1,4 +1,4 @@
-# Q2-ITSxpress a QIIME 2 plugin to trim ITS sequences
+# Q2-ITSxpress: a QIIME 2 plugin to trim ITS sequences
 
 ## Background
 
@@ -7,20 +7,24 @@ phylogenetic marker for fungi and other taxa. Previous work by [Nilsson et al.
 (2009)](https://doi.org/10.1111/j.1574-6968.2009.01618.x) showed that removing
 the conserved regions around the ITS results in more accurate taxonomic
 classification. An existing program,
-[ITSx](https://doi.org/10.1111/2041-210X.12073), can trim  FASTA sequences by
-matching HMM profiles to the ends of the flanking conserved genes. I Designed
+[ITSx](https://doi.org/10.1111/2041-210X.12073), can trim FASTA sequences by
+matching HMM profiles to the ends of the flanking conserved genes. I designed
 ITSxpress to extend this technique to trim the FASTQ files needed for the newer
 exact sequence variant methods used by in [QIIME 2](https://qiime2.org/):
 [Dada2](https://doi.org/10.1038/nmeth.3869) and
 [Deblur](10.1128/mSystems.00191-16). ITSxpress processes QIIME artifacts of the
 type "paired-end sequences with quality" or "sequences with quality".
 
-The plugin: 1. Merges reads (if paired-ended) using
-[BBMerge](https://doi.org/10.1371/journal.pone.0185056) 2. Temporarily clusters
+The plugin:
+1. Merges reads (if paired-end) using
+[BBMerge](https://doi.org/10.1371/journal.pone.0185056)
+2. Temporarily clusters
 highly similar sequences that are common in amplicon data using
-[VSEARCH](https://doi.org/10.7717/peerj.2584) 3. Identifies the ITS start and
+[VSEARCH](https://doi.org/10.7717/peerj.2584)
+3. Identifies the ITS start and
 stop sites using  [Hmmsearch](https://doi.org/10.1371/journal.pcbi.1002195) on
-the representative sequences 4. Trims each original, merged sequence with
+the representative sequences
+4. Trims each original, merged sequence with
 quality scores, returning the merged sequences with quality scores in a `.qza`
 file
 
@@ -37,7 +41,7 @@ ITSxpress is also available as a stand-alone software package from
 
 ## Installation
 
-The instructions assume that you [installed QIIME natively using the
+The instructions assume that you [installed QIIME 2 natively using the
 Conda](https://docs.qiime2.org/2018.6/install/native/)
 
 Activate the QIIME 2 Conda environment.
@@ -46,7 +50,7 @@ Activate the QIIME 2 Conda environment.
 source activate qiime2-2018.6
 ```
 
-Install Q2_itsxpress using BioConda. Be sure to install Q2_itsxpres in the QIIME
+Install Q2-itsxpress using Bioconda. Be sure to install Q2-itsxpress in the QIIME
 2 environment, meaning you ran the step above first.
 
 ```
@@ -68,18 +72,17 @@ qiime itsxpress
 ```
 
 ## Tutorial
-This tutorial walks the user through a typical workflow of importing sequences
-and environmental data. This involves:
-1. trimming the ITS region with ITSxpress
-2. calling sequence variants with Dada2
-3. training the Qiime Classifier
-4. classifying the sequences Taxonomically
+This tutorial walks the user through the first portion of a typical ITS workflow. This involves:
+1. Trimming the ITS region with ITSxpress
+2. Calling sequence variants with Dada2
+3. Training the QIIME 2 classifier
+4. Classifying the sequences taxonomically
 
 For this tutorial we will be starting with two paired-end samples than have
 already been demultiplexed into froward and reverse FASTQ files. A manifest
-file which lists the samples, files and read orientation is also used. If you
+file which lists the samples, files and read orientation is also used. *If you
 have copied the examples files to your computer you will need to change the path
-in the manifest to the complete path to your data.
+in the manifest to the complete path for your data files.*
 
 ### Example data
 We will be using two example soil samples from the Fungal ITS1 region. They have been
@@ -94,9 +97,8 @@ https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r2.f
 
 ### Importing data
 
-**Depending on where you downloaded the sample files you may need to edit the
-manifest file to include the absolute path to your FASTQ files.**  Once you have
-edited the files you can import the data into the `sequences.qza` file like this:
+Edit the absolute paths in your Once your manifest file to match your file
+location then import the data into the `sequences.qza` file like this:
 
 ```
 qiime tools import \
@@ -109,7 +111,7 @@ Run time: 5 seconds
 
 * Output `sequences.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fsequences.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/sequences.qza)
 
-### Trimming ITS samples with Q2-ITSXpress
+### Trimming ITS samples with Q2-ITSxpress
 
 ITSxpress takes paired-end or single-end QIIME artifacts for trimming. It merges
 reads (if paired-end), temporally clusters the reads, then looks for the ends of
@@ -176,12 +178,12 @@ Import the UNITE sequences for the smaller dataset selected with dynamic
 thresholds determined by fungal experts.
 
 There has been discussion about whether
-trimming the database (as opposed to  the reads) matters for classification. The
+trimming the database matters for classification. The
 QIIME team found that trimming the UNITE database [does not result in better
 classification](https://docs.qiime2.org/2018.6/tutorials/feature-classifier/)
 when untrimmed reads are used and recommended using the untrimmed developer
-database. Since we are using the trimmed ITS region this tutorial recommends
-using the _trimmed_ database but this has not yet been systematically compared.
+database. Since we are using the trimmed ITS region, this tutorial recommends
+using the __trimmed__ database but this has not yet been systematically compared.
 
 
 ```
@@ -192,7 +194,7 @@ qiime tools import \
 ```
 Run time 8 seconds
 
-* Output `unite.qza` [View]https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Funite.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/unite.qza)
+* Output `unite.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Funite.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/unite.qza)
 
 Import the associated UNITE taxonomy file.
 ```
@@ -208,10 +210,10 @@ Run time 4 seconds
 
 ### Train the QIIME classifier
 
-QIIME provides its own Naive Bayes classifier similar to
-[RDP](https://dx.doi.org/10.1128%2FAEM.00062-07) from a python package called
+QIIME provides its own naive Bayes classifier similar to
+[RDP](https://dx.doi.org/10.1128%2FAEM.00062-07) from the python package
 [SciKit Learn](http://scikit-learn.org/stable/modules/naive_bayes.html). Before
-using it  the classifier must be trained using the data you just imported.  
+using it the classifier must be trained using the data you just imported.  
 
 ```
 qiime feature-classifier fit-classifier-naive-bayes \
@@ -238,7 +240,7 @@ Run time: 1.5 minutes
 * Output `taxonomy.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxonomy.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/taxonomy.qza)
 
 ### Summarize the results
-Summarize the results for visualization in the QIIME viewer
+Summarize the results for visualization in the QIIME 2 viewer
 
 ```
 qiime metadata tabulate \
@@ -250,7 +252,7 @@ Run time: 4 seconds
 
 * Output `taxonomy.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxonomy.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/taxonomy.qzv)
 
-### Create interactive bar plot figures
+### Create an interactive bar plot figure
 
 
 ```
@@ -264,7 +266,7 @@ Run time: 4 seconds
 
 * Output `taxonomy.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxa-bar-plots.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/taxa-bar-plots.qzv)
 
-
+This tutorial provides the basic process for analyzing ITS sequences. The data is now in a form where it can be analyzed further using many of the other methods provided by QIIME 2.
 
 ## Citation information for ITSxpress
 * Rivers, A. R., Weber K. C., Gardner T. G., Liu, S., Armstrong, S. D. 2018.
