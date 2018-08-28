@@ -27,7 +27,7 @@ Activate the QIIME 2 Conda environment.
 source activate qiime2-2018.6
 ```
 
-Install ITSxpress using Bioconda and Q2-itsxpress using pip. Be sure to install ITSxpress and Q2-itsxpress in the QIIME 2 environment, meaning you ran the step above first.
+Install itsxpress using Bioconda and Q2-itsxpress using pip. Be sure to install itsxpress and Q2-itsxpress in the QIIME 2 environment, meaning you ran the step above first.
 
 ```
 conda config --add channels bioconda
@@ -68,10 +68,6 @@ We will be using data from two soil samples which have have their ITS1 region am
 ### Importing data
 
 Edit the absolute paths in your manifest file to match your file location, then import the data into QIIME.
-
-This step in the tutorial imports demultiplexed data into QIIME.
-
-> NOTE: If you have multiplexed data in a format like `EMPPairedEndSequences` you will need to demultiplex it first using the `demux` plugin. For a paired-end example see example see [this tutorial.](https://docs.qiime2.org/2018.6/tutorials/atacama-soils/#atacama-demux)
 
 ```
 qiime tools import \
@@ -170,7 +166,8 @@ Run time 4 seconds
 
 ### Train the QIIME classifier
 
-QIIME provides its own naive Bayes classifier similar to [RDP](https://dx.doi.org/10.1128%2FAEM.00062-07) from the python package [SciKit Learn](http://scikit-learn.org/stable/modules/naive_bayes.html). Before using it the classifier must be trained using the data you just imported.  
+QIIME provides its own naive Bayes classifier similar to [RDP](https://dx.doi.org/10.1128%2FAEM.00062-07) from the python package [SciKit
+Learn](http://scikit-learn.org/stable/modules/naive_bayes.html). Before using it the classifier must be trained using the data you just imported.
 
 ```
 qiime feature-classifier fit-classifier-naive-bayes \
