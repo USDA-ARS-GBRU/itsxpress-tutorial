@@ -3,7 +3,7 @@ _Adam R. Rivers - USDA Agricultural Research Service_
 
 ## Background
 
-The internally transcribed spacer (ITS) region a widely used phylogenetic marker for fungi and other taxa. Previous work by [Nilsson et al. (2009)](https://doi.org/10.1111/j.1574-6968.2009.01618.x) showed that removing the conserved regions around the ITS results in more accurate taxonomic classification. An existing program, [ITSx](https://doi.org/10.1111/2041-210X.12073), can trim FASTA sequences by matching HMM profiles to the ends of the flanking conserved genes. ITSxpress is designed to extend this technique to trim the FASTQ files needed for the newer exact sequence variant methods used by in [QIIME 2](https://qiime2.org/): [Dada2](https://doi.org/10.1038/nmeth.3869) and [Deblur](10.1128/mSystems.00191-16). ITSxpress processes QIIME artifacts of the type "paired-end sequences with quality" or "sequences with quality".
+The internally transcribed spacer (ITS) region a widely used phylogenetic marker for fungi and other taxa. Previous work by [Nilsson et al. (2009)](https://doi.org/10.1111/j.1574-6968.2009.01618.x) showed that removing the conserved regions around the ITS results in more accurate taxonomic classification. An existing program, [ITSx](https://doi.org/10.1111/2041-210X.12073), can trim FASTA sequences by matching HMM profiles to the ends of the flanking conserved genes. ITSxpress is designed to extend this technique to trim the FASTQ files needed for the newer exact sequence variant methods used by in [QIIME 2](https://qiime2.org/): [Dada2](https://doi.org/10.1038/nmeth.3869) and [Deblur](10.1128/mSystems.00191-16).  ITSxpress processes QIIME artifacts of the type `SampleData[PairedEndSequencesWithQuality]` or ` SampleData[SequencesWithQuality]`.
 
 The plugin:
 1. Merges reads (if paired-end) using [BBMerge](https://doi.org/10.1371/journal.pone.0185056)
@@ -30,8 +30,7 @@ source activate qiime2-2018.6
 Install ITSxpress using Bioconda and Q2-itsxpress using pip. Be sure to install ITSxpress and Q2-itsxpress in the QIIME 2 environment, meaning you ran the step above first.
 
 ```
-conda config --add channels bioconda
-conda install itsxpress
+conda install -c bioconda itsxpress
 pip install q2-itsxpress
 ```
 
@@ -64,7 +63,15 @@ We will be using data from two soil samples which have have their ITS1 region am
 * A manifest file: [manifest.txt](https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/manifest.txt)
 * A mapping file: [mapping.txt](https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/mapping.txt)
 
-
+If you have the command line program `wget` you can download the data with these commands
+```
+wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r1.fq.gz
+wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r2.fq.gz
+wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r1.fq.gz
+wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r2.fq.gz
+wget https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/manifest.txt
+wget https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/mapping.txt
+```
 ### Importing data
 
 Edit the absolute paths in your manifest file to match your file location, then import the data into QIIME.
@@ -105,7 +112,7 @@ Run time: 1 minute
 The merged sequences can be fed directly into Dada2 using the denoise-single command, even if the reads were paired-end to begin with.  Since BBmerge handled the merging and quality issues there is no need to trim or truncate the reads further.
 
 ```
-time qiime dada2 denoise-single \
+qiime dada2 denoise-single \
   --i-demultiplexed-seqs trimmed.qza \
   --p-trunc-len 0 \
   --p-n-threads 2 \
