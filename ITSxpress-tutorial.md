@@ -58,7 +58,7 @@ This tutorial walks the user through the first portion of a typical ITS workflow
 3. Training the QIIME 2 classifier
 4. Classifying the sequences taxonomically
 
-For this tutorial we will be starting with two paired-end samples than have already been demultiplexed into froward and reverse FASTQ files. A manifest file which lists the samples, files and read orientation is also used. *The example manifest uses the $PWD variable tto complete path for your computer.*
+For this tutorial we will be starting with two paired-end samples than have already been demultiplexed into froward and reverse FASTQ files. A manifest file which lists the samples, files and read orientation is also used. *The example manifest uses the $PWD variable to complete the path for your computer. If you have issues you can replace it with the direct path.*
 
 ### Example data
 We will be using data from two soil samples which have have their ITS1 region amplified with fungal primers. They have been subsampled to 10,000 read pairs for faster processing.
@@ -95,6 +95,18 @@ qiime tools import \
 Run time: 4 seconds
 
 * Output `sequences.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fsequences.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/sequences.qza)
+
+
+We can see the quality of the data by running the summarize command.
+
+```
+qiime demux summarize \
+  --i-data sequences.qza \
+  --o-visualization sequences.qzv
+```
+Run time: 4 seconds
+
+* Output `sequences.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fsequences.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/sequences.qzv)
 
 ### Download reference data from UNITE for fungal classification
 
@@ -137,10 +149,11 @@ Run time 4 seconds
 
 ### Trimming ITS samples with Q2-ITSxpress for Dada2
 
-`ITSxpress trim-pair-output-unmerged` takes paired-end QIIME artifacts for
-trimming. It merges the reads , temporally clusters the reads, then looks for
+`ITSxpress trim-pair-output-unmerged` takes paired-end QIIME artifacts
+`SampleData[PairedEndSequencesWithQuality]` for
+trimming. It merges the reads, temporally clusters the reads, then looks for
 the ends of the ITS region with Hmmsearch. HMM models are available for 18
-different clades. `itsxpress trim-pair-output-unmerged`  returns the unmerged, trimmed sequences.
+different clades. `itsxpress trim-pair-output-unmerged` returns the unmerged, trimmed sequences.
 
 ```
 qiime itsxpress trim-pair-output-unmerged\
@@ -156,7 +169,7 @@ Run time: 2 minutes 45 seconds
 ### Use Dada2 to identify sequence variants
 
 The trimmed sequences can be fed directly into Dada2 using the denoise-paired
-command.  Since BBmerge handled the merging and quality issues there is no need to trim or truncate the reads further.
+command. Since BBmerge handled the merging and quality issues there is no need to trim or truncate the reads further. In this tutorial we have set a truncation length \ to 0 because the data quality was good. Be sure to examine the `sequences.qzv` file before deciding to hard trim your reads.
 
 ```
 qiime dada2 denoise-paired \
