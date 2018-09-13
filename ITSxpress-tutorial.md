@@ -94,7 +94,7 @@ qiime tools import \
 ```
 Run time: 4 seconds
 
-* Output `sequences.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fsequences.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/sequences.qza)
+* Output `sequences.qza` [View](https://view.qiime2.org/visualization/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fsequences.qzv&type=html)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/sequences.qza)
 
 
 We can see the quality of the data by running the summarize command.
@@ -106,7 +106,7 @@ qiime demux summarize \
 ```
 Run time: 4 seconds
 
-* Output `sequences.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fsequences.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/sequences.qzv)
+* Output `sequences.qzv` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fsequences.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/sequences.qzv)
 
 
 ### Trimming ITS samples with Q2-ITSxpress for Dada2
