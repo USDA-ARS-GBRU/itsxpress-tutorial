@@ -108,44 +108,6 @@ Run time: 4 seconds
 
 * Output `sequences.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fsequences.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/sequences.qzv)
 
-### Download reference data from UNITE for fungal classification
-
-First download the newest [UNITE database for QIIME ](https://unite.ut.ee/repository.php) and unzip the file.
-
-```
-wget https://files.plutof.ut.ee/doi/0A/0B/0A0B25526F599E87A1E8D7C612D23AF7205F0239978CBD9C491767A0C1D237CC.zip
-unzip 0A0B25526F599E87A1E8D7C612D23AF7205F0239978CBD9C491767A0C1D237CC.zip
-```
-
-### Import the latest UNITE data into QIIME 2:
-
-Import the UNITE sequences for the smaller dataset selected with dynamic thresholds determined by fungal experts.
-
-There has been discussion about whether trimming the database matters for classification. The QIIME team found that trimming the UNITE database [does not result in better classification](https://docs.qiime2.org/2018.6/tutorials/feature-classifier/) when untrimmed reads are used and recommended using the untrimmed developer database. Since we are using the trimmed ITS region, this tutorial recommends using the __trimmed__ database but this has not yet been systematically compared.
-
-
-```
-qiime tools import \
-  --type 'FeatureData[Sequence]' \
-  --input-path sh_refs_qiime_ver7_dynamic_01.12.2017.fasta \
-  --output-path unite.qza
-```
-Run time 7 seconds
-
-* Output `unite.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Funite.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/unite.qza)
-
-Import the associated UNITE taxonomy file.
-```
-qiime tools import \
-  --type 'FeatureData[Taxonomy]' \
-  --input-format HeaderlessTSVTaxonomyFormat \
-  --input-path sh_taxonomy_qiime_ver7_dynamic_01.12.2017.txt \
-  --output-path unite-taxonomy.qza
-```
-Run time 4 seconds
-
-* Output `unite-taxonomy.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Funite-taxonomy.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/unite-taxonomy.qza)
-
 
 ### Trimming ITS samples with Q2-ITSxpress for Dada2
 
@@ -162,6 +124,16 @@ qiime itsxpress trim-pair-output-unmerged\
   --p-taxa F \
   --o-trimmed trimmed.qza
 ```
+
+```
+qiime itsxpress trim-pair-output-unmerged\
+  --i-per-sample-sequences sequences.qza \
+  --p-region ITS1 \
+  --p-taxa F \
+  --p-cluster-id 1.0 \
+  --p-threads 2 \
+  --o-trimmed trimmed_exact.qza
+  ```
 Run time: 2 minutes 45 seconds
 
 * Output `trimmed.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftrimmed.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/trimmed.qza)
@@ -205,6 +177,45 @@ Run time: 1 minute
 
 
 > Deblur is an alternative option for read correction. This tutorial uses Dada2 Because deblur requires uniform length reads, specified by the --p-trim-length flags, and ITS regions vary considerably in length. Tests across a range of trim lengths using Deblur yielded fewer sequence variants.
+
+
+### Download reference data from UNITE for fungal classification
+
+First download the newest [UNITE database for QIIME ](https://unite.ut.ee/repository.php) and unzip the file.
+
+```
+wget https://files.plutof.ut.ee/doi/0A/0B/0A0B25526F599E87A1E8D7C612D23AF7205F0239978CBD9C491767A0C1D237CC.zip
+unzip 0A0B25526F599E87A1E8D7C612D23AF7205F0239978CBD9C491767A0C1D237CC.zip
+```
+
+### Import the latest UNITE data into QIIME 2:
+
+Import the UNITE sequences for the smaller dataset selected with dynamic thresholds determined by fungal experts.
+
+There has been discussion about whether trimming the database matters for classification. The QIIME team found that trimming the UNITE database [does not result in better classification](https://docs.qiime2.org/2018.6/tutorials/feature-classifier/) when untrimmed reads are used and recommended using the untrimmed developer database. Since we are using the trimmed ITS region, this tutorial recommends using the __trimmed__ database but this has not yet been systematically compared.
+
+
+```
+qiime tools import \
+  --type 'FeatureData[Sequence]' \
+  --input-path sh_refs_qiime_ver7_dynamic_01.12.2017.fasta \
+  --output-path unite.qza
+```
+Run time 7 seconds
+
+* Output `unite.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Funite.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/unite.qza)
+
+Import the associated UNITE taxonomy file.
+```
+qiime tools import \
+  --type 'FeatureData[Taxonomy]' \
+  --input-format HeaderlessTSVTaxonomyFormat \
+  --input-path sh_taxonomy_qiime_ver7_dynamic_01.12.2017.txt \
+  --output-path unite-taxonomy.qza
+```
+Run time 4 seconds
+
+* Output `unite-taxonomy.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Funite-taxonomy.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/unite-taxonomy.qza)
 
 
 ### Train the QIIME classifier
