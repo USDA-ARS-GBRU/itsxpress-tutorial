@@ -1,4 +1,4 @@
-                                                                    # Q2-ITSxpress: a QIIME 2 plugin to trim ITS sequences
+# Q2-ITSxpress: a QIIME 2 plugin to trim ITS sequences
 _Adam R. Rivers - USDA Agricultural Research Service_
 
 ## Background
