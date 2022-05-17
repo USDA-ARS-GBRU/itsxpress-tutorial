@@ -27,7 +27,7 @@ Activate the QIIME 2 Conda environment.
 source activate qiime2-2018.8
 ```
 
-Install ITSxpress using Bioconda and Q2-itsxpress using pip. Be sure to install ITSxpress and Q2-itsxpress in the QIIME 2 environment, meaning you ran the step above first.
+Install ITSxpress using Bioconda and Q2-itsxpress using pip. Be sure to install ITSxpress and Q2-itsxpress in the QIIME 2 environment, meaning you ran the **step above first**.
 
 ```
 conda install -c bioconda itsxpress
@@ -45,6 +45,14 @@ Check to see if the ITSxpress plugin is installed. After running this command yo
 ```
 qiime itsxpress
 ```
+
+Download bbmap into the current directory (or Documents/anywhere) and follow this tutorial for your OS: https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/installation-guide/ 
+
+Put bbmap folder into path, for example if you've downloaded bbmap into your current directory:
+PATH="./bbmap/:${PATH}"
+export PATH
+
+If you receive an error like "No such file or directory: 'bbmerge.sh'" then your computer doesn't know the path to the bbmap folder and the previous step needs to be revisited. 
 
 ## Tutorial
 
@@ -153,8 +161,8 @@ qiime dada2 denoise-paired \
 
 ```
 qiime dada2 denoise-single \
-  --i-demultiplexed-seqs db_trimmed.qza \
-  --p-trunc-len-f 0 \
+  --i-demultiplexed-seqs trimmed.qza \
+  --p-trunc-len 0 \
   --output-dir dada2wrongout
 ```
 Run time: 1 minute
