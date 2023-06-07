@@ -247,7 +247,7 @@ qiime feature-classifier classify-sklearn \
   --i-reads dada2out/representative_sequences.qza \
   --o-classification taxonomy.qza
 ```
-Run time: 1.5 minutes
+Run time: 49 seconds
 
 * Output `taxonomy.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxonomy.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/taxonomy.qza)
 
