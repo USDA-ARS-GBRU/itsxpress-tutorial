@@ -1,3 +1,3 @@
-ID	Soil
-S1  Sandy
-S2  Loam
+ID	Genotype
+sample1	Afghanistan collection
+sample2	Turkey collection
