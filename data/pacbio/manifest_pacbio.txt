@@ -1,0 +1,2 @@
+sample-id,absolute-filepath,direction
+S1,$PWD/out.fastq.gz,forward
