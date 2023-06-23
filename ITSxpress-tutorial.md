@@ -325,7 +325,7 @@ qiime tools import \
 ```
 Run time: 5 seconds
 
-* Output `sequences.qza` [View](https://view.qiime2.org/visualization/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fsequences.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/sequences.qza)
+* Output `sequences.qza` [View](https://view.qiime2.org/visualization/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fsequences.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/sequences.qza)
 
 
 We can see the quality of the data by running the summarize command.
@@ -337,7 +337,7 @@ qiime demux summarize   \
 ```
 Run time: 9 seconds
 
-* Output `sequences.qzv` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fsequences.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/sequences.qzv)
+* Output `sequences.qzv` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fsequences.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/sequences.qzv)
 
 
 ### Trimming ITS samples with ITSxpress for Dada2
@@ -360,7 +360,7 @@ qiime itsxpress trim-single \
 Run time: 15 seconds
 
 
-* Output `trimmed.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftrimmed.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/trimmed.qza)
+* Output `trimmed.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftrimmed.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/trimmed.qza)
 
 ### Use Dada2 to identify sequence variants
 
@@ -379,9 +379,9 @@ Run time: 10 seconds
 
 * Output:
 
-  1. `dada2out/denoising_stats.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Fdenoising_stats.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/dada2out/denoising_stats.qza)
-  2. `dada2out/representative_sequences.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Frepresentative_sequences.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/dada2out/representative_sequences.qza)
-  3.  `dada2out/table.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Ftable.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/dada2out/table.qza)
+  1. `dada2out/denoising_stats.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Fdenoising_stats.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/dada2out/denoising_stats.qza)
+  2. `dada2out/representative_sequences.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Frepresentative_sequences.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/dada2out/representative_sequences.qza)
+  3.  `dada2out/table.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Ftable.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/dada2out/table.qza)
 
   ### Summarize the data for visual inspection:
   ```
@@ -391,12 +391,12 @@ Run time: 10 seconds
   ```
   Run time: 5 seconds
 
-  * Output `tableviz.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftableviz.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/tableviz.qzv)
+  * Output `tableviz.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftableviz.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/tableviz.qzv)
 
 
 > Deblur is an alternative option for read correction. This tutorial uses Dada2 Because deblur requires uniform length reads, specified by the --p-trim-length flags, and ITS regions vary considerably in length. Tests across a range of trim lengths using Deblur yielded fewer sequence variants.
 
-### The following section is exactly the same as the above tutorial using paired-end example data.
+### The following section is exactly the same as the above tutorial using paired-end example data. Feel free to use classifier developed above.
 
 ### Download reference data from UNITE for fungal classification
 
@@ -422,7 +422,7 @@ qiime tools import \
 ```
 Run time 10 seconds
 
-* Output `unite.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Funite.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/unite.qza)
+* Output `unite.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Funite.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/unite.qza)
 
 Import the associated UNITE taxonomy file.
 ```
@@ -434,7 +434,7 @@ qiime tools import \
 ```
 Run time 5 seconds
 
-* Output `unite-taxonomy.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Funite-taxonomy.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/unite-taxonomy.qza)
+* Output `unite-taxonomy.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Funite-taxonomy.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/unite-taxonomy.qza)
 
 
 ### Train the QIIME classifier
@@ -449,7 +449,7 @@ qiime feature-classifier fit-classifier-naive-bayes \
 ```
 Run time: 19 minutes
 
-* Output `classifier.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fclassifier.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/classifier.qza)
+* Output `classifier.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fclassifier.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/classifier.qza)
 
 ### Note: If you come accross an error saying "[Errno 28] No space left on device". You may need to empty your qiime2 temp directory. See discussion here: [Temp directory space issue](https://forum.qiime2.org/t/is-there-something-unusual-about-how-the-tmpdir-is-being-set-in-2023-2/26402/8)
 
@@ -465,7 +465,7 @@ qiime feature-classifier classify-sklearn \
 ```
 Run time: 49 seconds
 
-* Output `taxonomy.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxonomy.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/taxonomy.qza)
+* Output `taxonomy.qza` [View](https://view.qiime2.org/peek/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxonomy.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/taxonomy.qza)
 
 ### Summarize the results
 Summarize the results for visualization in the QIIME 2 viewer.
@@ -478,7 +478,7 @@ qiime metadata tabulate \
 
 Run time: 4 seconds
 
-* Output `taxonomy.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxonomy.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/taxonomy.qzv)
+* Output `taxonomy.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxonomy.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/taxonomy.qzv)
 
 ### Create an interactive bar plot figure
 
@@ -492,7 +492,7 @@ qiime taxa barplot \
 ```
 Run time: 4 seconds
 
-* Output `taxonomy.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxa-bar-plots.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/taxa-bar-plots.qzv)
+* Output `taxonomy.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxa-bar-plots.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/taxa-bar-plots.qzv)
 
 This tutorial provides the basic process for analyzing ITS sequences. The data is now in a form where it can be analyzed further using many of the other methods provided by QIIME 2.
 
