@@ -1,2 +1,2 @@
 sample-id,absolute-filepath,direction
-S1,$PWD/out.fastq.gz,forward
+S1,$PWD/pacbio/pacbio_samp1_reformat.fastq.gz,forward

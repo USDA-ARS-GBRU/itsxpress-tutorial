@@ -65,17 +65,17 @@ For this tutorial we will be starting with two paired-end samples than have alre
 ### Example data
 We will be using data from two soil samples which have have their ITS1 region amplified with fungal primers. They have been subsampled to 10,000 read pairs for faster processing.
 
-* [sample1_r1.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r1.fq.gz) and [sample1_r2.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r2.fq.gz)
-* [sample2_r1.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r1.fq.gz) and [sample2_r2.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r2.fq.gz)
+* [sample1_r1.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r1.fastq.gz) and [sample1_r2.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r2.fastq.gz)
+* [sample2_r1.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r1.fastq.gz) and [sample2_r2.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r2.fastq.gz)
 * A manifest file: [manifest.txt](https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/manifest.txt)
 * A mapping file: [mapping.txt](https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/mapping.txt)
 
 If you have the command line program `wget` you can download the data with these commands
 ```
-wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r1.fq.gz
-wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r2.fq.gz
-wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r1.fq.gz
-wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r2.fq.gz
+wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r1.fastq.gz
+wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r2.fastq.gz
+wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r1.fastq.gz
+wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r2.fastq.gz
 wget https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/manifest.txt
 wget https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/mapping.txt
 ```
@@ -156,13 +156,6 @@ qiime dada2 denoise-paired \
   --output-dir dada2out
 ```
 Run time: 10 seconds
-#```
-#qiime dada2 denoise-single \
-#  --i-demultiplexed-seqs trimmed_singleend.qza \
-#  --p-trunc-len 0 \
-#  --output-dir dada2out_singleend
-#```
-#Run time: 1 minute
 
 * Output:
 
@@ -286,10 +279,10 @@ This tutorial provides the basic process for analyzing ITS sequences. The data i
 
 ### Below is the tutorial for Pacbio data
 
-
+You can find the paper this test sample is from here: [Runnel et al. 2022] (https://doi.org/10.1111/1755-0998.13663)
 
 ### Example Pacbio data
-We will be using data from two soil samples which have have their ITS1 region amplified with fungal primers.
+We will be using data from amplifying fungal soil samples which have have the entire ITS1/5.8S/ITS2 region amplified with fungal primers.
 
 * [pacbio_samp1.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/pacbio/pacbio_samp1/sample1_r1.fq.gz)
 * A manifest file: [manifest.txt](https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/pacbio/manifest.txt)
@@ -342,11 +335,8 @@ Run time: 9 seconds
 
 ### Trimming ITS samples with ITSxpress for Dada2
 
-`ITSxpress trim-pair-output-unmerged` takes paired-end QIIME artifacts
-`SampleData[PairedEndSequencesWithQuality]` for
-trimming. It merges the reads, temporally clusters the reads, then looks for
-the ends of the ITS region with Hmmsearch. HMM models are available for 18
-different clades. `itsxpress trim-pair-output-unmerged` returns the unmerged, trimmed sequences. `itsxpress trim-pair-output-merged` returns merged, trimmed sequences. You can adjust the --p-cluster-id value, which is the percent identity for clustering reads range [0.995-1.0], set to 1 for exact de-replication. Default is 1.
+Since Pacbio long range sequencing allows for amplification of the entire ITS1/5.8S/ITS2 region, you can change the --p-region command below between ITS1, ITS2, and ALL to trim to the corresponding region and see the difference in taxonomic output.
+
 
 ```
 qiime itsxpress trim-single \
@@ -487,12 +477,22 @@ Run time: 4 seconds
 qiime taxa barplot \
   --i-table ./pacbio/dada2out/table.qza  \
   --i-taxonomy ./pacbio/taxonomy.qza \
-  --m-metadata-file ./pacbio/mapping.txt \
+  --m-metadata-file ./pacbio/mapping_pacbio.txt \
   --o-visualization ./pacbio/taxa-bar-plots.qzv
 ```
 Run time: 4 seconds
 
-* Output `taxonomy.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxa-bar-plots.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/taxa-bar-plots.qzv)
+* Output `taxa-bar-plots.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxa-bar-plots.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/taxa-bar-plots.qzv)
+
+
+### The benefit of long read Pacbio analysis is the ability to see differences in taxonomy when trimming to different regions. The example above trimmed to the ITS1 region in the ITSxpress trim-single command, but you can do the same with the ITS2 and ALL regions and compare the taxa-bar-plots:
+
+### ITS2
+* Output `taxa-bar-plots.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxa-bar-plots.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/taxa-bar-plots.qzv)
+
+### ALL
+
+* Output `taxa-bar-plots.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftaxa-bar-plots.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/taxa-bar-plots.qzv)
 
 This tutorial provides the basic process for analyzing ITS sequences. The data is now in a form where it can be analyzed further using many of the other methods provided by QIIME 2.
 
