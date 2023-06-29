@@ -2,6 +2,37 @@
 _Adam R. Rivers - USDA Agricultural Research Service_
 
 _Sveinn V. Einarsson - Dep. Microbiology and Cell Science, U. Florida & USDA Agricultural Research Service_  
+
+## Updates to ITSxpress as version 2.0.0 is implemented. ##
+ITSxpress v2.0.0 is a major update to the ITSxpress package.
+Release Highlights
+- pip (PyPI) is no longer maintained for ITSxpress>=v2.0.0
+    - Qiime2 plugin version of ITSxpress is now part of the standalone package of ITSxpress
+    -   No longer need to install q2-itsxpress separately and will be installed if Qiime2 is already installed, otherwise only the standalone version will be installed
+    - Seperate Qiime2 plugin version (PyPI) of ITSxpress is no longer maintained after q2-itsxpress v1.8.1
+    - Package can be installed from Github, and Bioconda
+
+- Removed BBmap dependency
+    - BBmap scripts are no longer used in the pipeline, including:
+        - reformat.sh (interleaved files no longer supported)
+        - bbmerge.sh (merging of paired-end reads now done with Vsearch --fastq_mergepairs)
+             - merging of paired-end reads is different between Vsearch and BBmerge, so results may differ
+- Updated dereplication step for newer versions of Vsearch
+    - Dereplication step now done using Vsearch --fastx_uniques (derep_fulllength command no longer supports fastq files)
+- Pacbio sequences are now supported if fastq file scores are in Illumina format
+
+Bug Fixes
+- Fixed bug where the q2-itsxpress plugin was not handling single-end reads correctly, and was looking for a reverse read file
+- Fixed a bug that could cause crashes when an intermediate file was empty
+
+Previous release highlights since tutorial was written:
+- 1.8.1 is the final version that uses BBmap scripts. This version is still available on the EOL-1.8.1 branch of the ITSxpress repository
+- Fixed version of dependencies for version 1.8.1, to maintain compatibility with Qiime2 2022.8
+- Updated pip install config file to pyproject.toml
+- Updated readme usage section to reference compatible Qiime2 version
+- Added read count output to log file
+- Added support for primer sets in the reverse orientation
+
 ## Background
 
 The internally transcribed spacer (ITS) region a widely used phylogenetic marker for fungi and other taxa. Previous work by [Nilsson et al. (2009)](https://doi.org/10.1111/j.1574-6968.2009.01618.x) showed that removing the conserved regions around the ITS results in more accurate taxonomic classification. An existing program, [ITSx](https://doi.org/10.1111/2041-210X.12073), can trim FASTA sequences by matching HMM profiles to the ends of the flanking conserved genes. ITSxpress is designed to extend this technique to trim the FASTQ files needed for the newer exact sequence variant methods used by in [QIIME 2](https://qiime2.org/): [Dada2](https://doi.org/10.1038/nmeth.3869) and [Deblur](10.1128/mSystems.00191-16).  ITSxpress processes QIIME artifacts of the type `SampleData[PairedEndSequencesWithQuality]` or `SampleData[SequencesWithQuality]`.
