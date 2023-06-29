@@ -3,7 +3,7 @@ _Adam R. Rivers - USDA Agricultural Research Service_
 
 _Sveinn V. Einarsson - Dep. Microbiology and Cell Science, U. Florida & USDA Agricultural Research Service_  
 
-## Updates to ITSxpress as version 2.0.0 is implemented. ##
+## Updates to ITSxpress ##
 ITSxpress v2.0.0 is a major update to the ITSxpress package.
 Release Highlights
 - pip (PyPI) is no longer maintained for ITSxpress>=v2.0.0
