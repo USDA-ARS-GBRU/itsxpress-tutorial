@@ -316,8 +316,8 @@ We will be using data from amplifying fungal soil samples which have have the en
 
 * [pacbio_samp1.fastq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/pacbio/pacbio_samp1.fastq.gz)
 * [pacbio_samp1_reformat.fastq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/pacbio/pacbio_samp1_reformat.fastq.gz)
-* A manifest file: [manifest.txt](https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/pacbio/manifest.txt)
-* A mapping file: [mapping.txt](https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/pacbio/mapping.txt)
+* A manifest file: [manifest.txt](https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/pacbio/manifest_pacbio.txt)
+* A mapping file: [mapping.txt](https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/pacbio/mapping_pacbio.txt)
 
 If you have the command line program `wget` you can download the data with these commands
 ```
