@@ -91,7 +91,7 @@ This tutorial walks the user through the first portion of a typical ITS workflow
 
 For this tutorial we will be starting with two paired-end samples than have already been demultiplexed into forward and reverse FASTQ files. A manifest file which lists the samples, files and read orientation is also used. *The example manifest uses the $PWD variable to complete the path for your computer. If you have issues you can replace it with the direct path.*
 
-## Below the following tutorial you can find a walkthrough of Pacbio ITS analysis. ##
+## Below the following tutorial you can find an experimental walkthrough of Pacbio ITS analysis. ##
 
 ### Example data
 We will be using data from two soil samples which have have their ITS1 region amplified with fungal primers. They have been subsampled to 10,000 read pairs for faster processing.
@@ -193,12 +193,15 @@ Run time: 10 seconds
   2. `dada2out/representative_sequences.qza` [View](https://view.qiime2.org/visualization/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Frepresentative_sequences.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/dada2out/representative_sequences.qza)
   3.  `dada2out/table.qza` [View](https://view.qiime2.org/visualization/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fdada2out%2Ftable.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/dada2out/table.qza)
 
+
   ### Summarize the data for visual inspection:
+  
   ```
   qiime feature-table summarize \
     --i-table dada2out/table.qza \
     --o-visualization tableviz.qzv
   ```
+  
   Run time: 5 seconds
 
   * Output `tableviz.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftableviz.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/tableviz.qzv)
@@ -307,7 +310,7 @@ This tutorial provides the basic process for analyzing ITS sequences. The data i
 
 
 
-### Below is the tutorial for Pacbio data
+### EXPERIMENTAL - Below is a tutorial for Pacbio data. However, due to the variable nature of PACBIO read scoring and file types this is not maintained. This may be revisted in the future. ###
 
 You can find the paper this test sample is from here: [Runnel et al. 2022] (https://doi.org/10.1111/1755-0998.13663)
 
@@ -404,12 +407,15 @@ Run time: 10 seconds
   2. `dada2out/representative_sequences.qza` [View](https://view.qiime2.org/visualization/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fpacbio%2Fdada2out%2Frepresentative_sequences.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/dada2out/representative_sequences.qza)
   3.  `dada2out/table.qza` [View](https://view.qiime2.org/visualization/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fpacbio%2Fdada2out%2Ftable.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/dada2out/table.qza)
 
+
   ### Summarize the data for visual inspection:
+  
   ```
   qiime feature-table summarize \
     --i-table ./pacbio/dada2out/table.qza \
     --o-visualization ./pacbio/tableviz.qzv
   ```
+  
   Run time: 5 seconds
 
   * Output `tableviz.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fpacbio%2Ftableviz.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/tableviz.qzv)
