@@ -323,8 +323,8 @@ If you have the command line program `wget` you can download the data with these
 ```
 wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/pacbio/pacbio_samp1.fastq.gz
 wget https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/pacbio/pacbio_samp1_reformat.fastq.gz
-wget https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/pacbio/manifest.txt
-wget https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/pacbio/mapping.txt
+wget https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/pacbio/manifest_pacbio.txt
+wget https://raw.githubusercontent.com/USDA-ARS-GBRU/itsxpress-tutorial/master/data/pacbio/mapping_pacbio.txt
 ```
 ### Import the sequence data
 
