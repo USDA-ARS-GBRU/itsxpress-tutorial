@@ -11,18 +11,18 @@ The plugin:
 1. Merges reads (if paired-end) using [VSEARCH](https://doi.org/10.7717/peerj.2584)
 2. Temporarily clusters highly similar sequences that are common in amplicon data also using [VSEARCH](https://doi.org/10.7717/peerj.2584)
 3. Identifies the ITS start and stop sites using  [Hmmsearch](https://doi.org/10.1371/journal.pcbi.1002195) on the representative sequences
-4. Trims each original, merged sequence with quality scores, returning the merged or unmerged sequences with quality scores in a `.qza` file
+4. Trims each original sequence with quality scores, returning the single or paired-end reads with quality scores in a `.qza` file
 
-ITSxpress speeds up the trimming of reads by a factor of 14-23 times on a 4-core computer by temporarily clustering highly similar sequences that are common in amplicon data and utilizing optimized parameters for Hmmsearch. For more information see [the paper](#New link to V2 paper).
+ITSxpress speeds up the trimming of reads by a factor of 14-23 times on a 4-core computer by temporarily clustering highly similar sequences that are common in amplicon data and utilizing optimized parameters for Hmmsearch. For more information see the paper.
 
-ITSxpress is installed as a standalone package with a Qiime2 plugin, IF Qiime2 is available. Package can be installed from [Github](https://github.com/USDA-ARS-GBRU/itsxpress/), and [Bioconda](https://bioconda.github.io/recipes/itsxpress/README.html).
+ITSxpress is installed as a standalone package with the Qiime2 ITSxpress plugin, IF Qiime2 is available. Package can be installed from[Bioconda](https://bioconda.github.io/recipes/itsxpress/README.html) and [Github](https://github.com/USDA-ARS-GBRU/itsxpress/).
 
 PIP (PyPI) is no longer maintained for ITSxpress>=v2.0.0.
 
 
 ## Installation
 
-The instructions assume that you [installed QIIME 2 natively using Mamba (or Conda)](https://docs.qiime2.org/2023.2/install/native/) and are using ITSxpress version 2.0.0.
+The instructions assume that you [installed QIIME 2 natively using Mamba (or Conda)](https://docs.qiime2.org/2023.2/install/native/) and are using ITSxpress version 2.0.0 or greater.
 
 Activate the QIIME 2 Conda environment.
 
@@ -30,7 +30,7 @@ Activate the QIIME 2 Conda environment.
 mamba activate qiime2-2023.2
 ```
 
-Install ITSxpress using Bioconda. Be sure to install ITSxpress in the QIIME 2 environment, meaning you ran the step above first. ITSxpress no longer has a seperate Qiime plugin, it is included with the standalone version IF you already have Qiime2 installed in your environment.
+Install ITSxpress using Bioconda. Be sure to install ITSxpress in the QIIME 2 environment, meaning you ran the steps above first. ITSxpress no longer has a seperate Qiime plugin, it is included with the standalone version IF you already have Qiime2 installed in your environment.
 
 ```
 mamba install -c bioconda itsxpress
@@ -49,7 +49,7 @@ qiime itsxpress
 ```
 
 
-> Note: this tutorial was updated for ITSxpress 2.0.0 on 03/06/2023.
+> Note: this tutorial was updated for ITSxpress 2.0.1 on 12/21/2023.
 
 
 
@@ -64,7 +64,7 @@ For this tutorial we will be starting with two paired-end samples than have alre
 ## Below the following tutorial you can find an experimental walkthrough of Pacbio ITS analysis. ##
 
 ### Example data
-We will be using data from two soil samples which have have their ITS1 region amplified with fungal primers. They have been subsampled to 10,000 read pairs for faster processing.
+We will be using data from two soil samples which have have their ITS2 region amplified with fungal primers. They have been subsampled to 10,000 read pairs for faster processing.
 
 * [sample1_r1.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r1.fastq.gz) and [sample1_r2.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample1_r2.fastq.gz)
 * [sample2_r1.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r1.fastq.gz) and [sample2_r2.fq.gz](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/raw/master/data/sample2_r2.fastq.gz)
@@ -118,8 +118,20 @@ Run time: 9 seconds
 `SampleData[PairedEndSequencesWithQuality]` for
 trimming. It merges the reads, temporally clusters the reads, then looks for
 the ends of the ITS region with Hmmsearch. HMM models are available for 18
-different clades. `itsxpress trim-pair-output-unmerged` returns the unmerged, trimmed sequences. `itsxpress trim-pair-output-merged` returns merged, trimmed sequences. You can adjust the --p-cluster-id value, which is the percent identity for clustering reads range [0.995-1.0], set to 1 for exact de-replication. Default is 1.
+different clades. `itsxpress trim-pair-output-unmerged` returns the unmerged, trimmed sequences. `itsxpress trim-pair-output-merged` returns merged, trimmed sequences. You can adjust the --p-cluster-id value, which is the percent identity for clustering reads range [0.995-1.0], set to 1 for exact de-replication.
 
+```
+qiime itsxpress trim-pair-output-unmerged\
+  --i-per-sample-sequences sequences.qza \
+  --p-region ITS2 \
+  --p-taxa F \
+  --p-cluster-id 1.0 \
+  --p-threads 16 \
+  --o-trimmed trimmed_exact.qza
+```
+Run time: 23 seconds
+
+The following command clusters 99.5% sequence similarity. We recommend clustering to 100% similarity, as the speed benefit is negligible. 
 ```
 qiime itsxpress trim-pair-output-unmerged\
   --i-per-sample-sequences sequences.qza \
@@ -131,16 +143,6 @@ qiime itsxpress trim-pair-output-unmerged\
 ```
 Run time: 15 seconds
 
-```
-qiime itsxpress trim-pair-output-unmerged\
-  --i-per-sample-sequences sequences.qza \
-  --p-region ITS2 \
-  --p-taxa F \
-  --p-cluster-id 1.0 \
-  --p-threads 16 \
-  --o-trimmed trimmed_exact.qza
-  ```
-Run time: 23 seconds
 * Output `trimmed.qza` [View](https://view.qiime2.org/visualization/?src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Ftrimmed.qza)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/trimmed.qza)
 
 ### Use Dada2 to identify sequence variants
@@ -286,7 +288,7 @@ Release Highlights
     - Qiime2 plugin version of ITSxpress is now part of the standalone package of ITSxpress
     - Qiime2 needs to be installed first
           - During ITSxpress installation a check is performed to see if Qiime2 is installed. The Qiime2 ITSxpress plugin is installed IF Qiime2 is installed.
-    - Seperate Qiime2 plugin version (PyPI) of ITSxpress is no longer maintained after q2-itsxpress v1.8.1
+    - Seperate Qiime2 plugin version (PyPI) of ITSxpress is no longer maintained after q2-itsxpress v1.8.1 and should not be installed unless    
     - Package can be installed from Github, and Bioconda
 
 - Removed BBmap dependency
