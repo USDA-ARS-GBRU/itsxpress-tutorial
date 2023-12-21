@@ -279,8 +279,42 @@ Run time: 4 seconds
 This tutorial provides the basic process for analyzing ITS sequences. The data is now in a form where it can be analyzed further using many of the other methods provided by QIIME 2.
 
 
+## Updates to ITSxpress v2.x.x from v1.x.x ##
+ITSxpress v2.0.0 is a major update to the ITSxpress package.
+Release Highlights
+- pip (PyPI) is no longer maintained for ITSxpress>=v2.0.0
+    - Qiime2 plugin version of ITSxpress is now part of the standalone package of ITSxpress
+    - Qiime2 needs to be installed first
+          - During ITSxpress installation a check is performed to see if Qiime2 is installed. The Qiime2 ITSxpress plugin is installed IF Qiime2 is installed.
+    - Seperate Qiime2 plugin version (PyPI) of ITSxpress is no longer maintained after q2-itsxpress v1.8.1
+    - Package can be installed from Github, and Bioconda
 
-### EXPERIMENTAL - Below is a tutorial for Pacbio data. However, due to the variable nature of PACBIO read scoring and file types this is not maintained. This may be revisted in the future. ###
+- Removed BBmap dependency
+    - BBmap scripts are no longer used in the pipeline, including:
+        - reformat.sh (interleaved files no longer supported)
+        - bbmerge.sh (merging of paired-end reads now done with Vsearch --fastq_mergepairs)
+             - merging of paired-end reads is different between Vsearch and BBmerge, so results may differ
+- Updated dereplication step for newer versions of Vsearch
+    - Dereplication step now done using Vsearch --fastx_uniques (derep_fulllength command no longer supports fastq files)
+- Pacbio sequences are now supported if fastq file scores are in Illumina format
+
+Bug Fixes
+- Fixed bug where the q2-itsxpress plugin was not handling single-end reads correctly, and was looking for a reverse read file
+- Fixed a bug that could cause crashes when an intermediate file was empty
+
+Previous release highlights since tutorial was written:
+- 1.8.1 is the final version that uses BBmap scripts. This version is still available on the EOL-1.8.1 branch of the ITSxpress repository
+- Fixed version of dependencies for version 1.8.1, to maintain compatibility with Qiime2 2022.8
+- Updated pip install config file to pyproject.toml
+- Updated readme usage section to reference compatible Qiime2 version
+- Added read count output to log file
+- Added support for primer sets in the reverse orientation
+- 
+
+![BannerForTutorial](https://github.com/USDA-ARS-GBRU/itsxpress-tutorial/assets/59879019/dcd731c8-d569-434e-98b9-f3614f40318d)
+
+
+### Below is a tutorial for Pacbio data. However, due to the variable nature of PACBIO read scoring and file types this is not maintained. This may be revisted in the future. ###
 
 You can find the paper this test sample is from here: [Runnel et al. 2022] (https://doi.org/10.1111/1755-0998.13663)
 
@@ -502,38 +536,6 @@ Run time: 4 seconds
 * Output `taxa-bar-plots.qzv` [View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fusda-ars-gbru.github.io%2Fitsxpress-tutorial%2Fdata%2Fpacbio%2Fpacbio%2FALL%2Ftaxa-bar-plots.qzv)  \| [Download](https://usda-ars-gbru.github.io/itsxpress-tutorial/data/pacbio/pacbio/ALL/taxa-bar-plots.qzv)
 
 You'll see that including more conserved regions with the ALL trim command in ITSxpress, some of the finer scale variability is lost. This tutorial provides the basic process for analyzing ITS sequences. The data is now in a form where it can be analyzed further using many of the other methods provided by QIIME 2.
-
-
-## Updates to ITSxpress v2.x.x from v1.x.x ##
-ITSxpress v2.0.0 is a major update to the ITSxpress package.
-Release Highlights
-- pip (PyPI) is no longer maintained for ITSxpress>=v2.0.0
-    - Qiime2 plugin version of ITSxpress is now part of the standalone package of ITSxpress
-    - Qiime2 needs to be installed first
-          - During ITSxpress installation a check is performed to see if Qiime2 is installed. The Qiime2 ITSxpress plugin is installed IF Qiime2 is installed.
-    - Seperate Qiime2 plugin version (PyPI) of ITSxpress is no longer maintained after q2-itsxpress v1.8.1
-    - Package can be installed from Github, and Bioconda
-
-- Removed BBmap dependency
-    - BBmap scripts are no longer used in the pipeline, including:
-        - reformat.sh (interleaved files no longer supported)
-        - bbmerge.sh (merging of paired-end reads now done with Vsearch --fastq_mergepairs)
-             - merging of paired-end reads is different between Vsearch and BBmerge, so results may differ
-- Updated dereplication step for newer versions of Vsearch
-    - Dereplication step now done using Vsearch --fastx_uniques (derep_fulllength command no longer supports fastq files)
-- Pacbio sequences are now supported if fastq file scores are in Illumina format
-
-Bug Fixes
-- Fixed bug where the q2-itsxpress plugin was not handling single-end reads correctly, and was looking for a reverse read file
-- Fixed a bug that could cause crashes when an intermediate file was empty
-
-Previous release highlights since tutorial was written:
-- 1.8.1 is the final version that uses BBmap scripts. This version is still available on the EOL-1.8.1 branch of the ITSxpress repository
-- Fixed version of dependencies for version 1.8.1, to maintain compatibility with Qiime2 2022.8
-- Updated pip install config file to pyproject.toml
-- Updated readme usage section to reference compatible Qiime2 version
-- Added read count output to log file
-- Added support for primer sets in the reverse orientation
 
 
 
