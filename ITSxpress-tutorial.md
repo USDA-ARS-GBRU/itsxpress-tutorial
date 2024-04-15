@@ -22,12 +22,12 @@ PIP (PyPI) is no longer maintained for ITSxpress>=v2.0.0.
 
 ## Installation
 
-The instructions assume that you [installed QIIME 2 natively using Mamba (or Conda)](https://docs.qiime2.org/2023.2/install/native/) and are using ITSxpress version 2.0.0 or greater. Please see specific operating system instructions for your computer.
+The instructions assume that you [installed QIIME 2 natively using Mamba (or Conda)](https://docs.qiime2.org/2024.2/install/native/) and are using ITSxpress version 2.0.0 or greater. Please see specific operating system instructions for your computer.
 
 Activate the QIIME 2 Conda environment.
 
 ```
-mamba activate qiime2-2023.2
+mamba activate qiime2-2024.2
 ```
 
 Install ITSxpress using Bioconda. Be sure to install ITSxpress in the QIIME 2 environment, meaning you ran the steps above first. ITSxpress no longer has a seperate Qiime plugin, it is included with the standalone version IF you already have Qiime2 installed in your environment.
@@ -57,7 +57,7 @@ qiime itsxpress
 ```
 
 
-> Note: this tutorial was updated for ITSxpress 2.2.0 on 4/10/2024.
+> Note: this tutorial was updated for ITSxpress 2.1.0 on 4/15/2024.
 
 
 
